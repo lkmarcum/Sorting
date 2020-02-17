@@ -38,9 +38,38 @@ def bubble_sort(arr):
 
 # STRETCH: implement the Count Sort function below
 def count_sort(arr, maximum=-1):
+    if len(arr) == 0:
+        return arr
+    else:
+        min = arr[0]
+        max = 0
 
-    return arr
+        for i in range(0, len(arr)):
+            if arr[i] < min:
+                min = arr[i]
+            elif arr[i] > max:
+                max = arr[i]
+
+        if min < 0:
+            return "Error, negative numbers not allowed in Count Sort"
+        else:
+
+            count_arr = [0 for i in range(0, max - min + 1)]
+            for i in range(0, len(arr)):
+                count_arr[arr[i] - min] += 1
+            for i in range(1, len(count_arr)):
+                count_arr[i] += count_arr[i - 1]
+            temp_arr = [0 for i in range(0, len(arr))]
+            for i in range(0, len(arr)):
+                print(count_arr[arr[i] - min])
+                temp_arr[count_arr[arr[i] - min] - 1] = arr[i]
+                count_arr[arr[i] - min] -= 1
+            arr = temp_arr
+            return arr
 
 
-# arr1 = [4, 7, 3, 1, 8, 5]
-# print(selection_sort(arr1))
+arr1 = [14, 47, 23, -2, 8, 15]
+print(count_sort(arr1))
+
+#  1  2  3  4  5  6  7  8
+# [0, 0, 0, 0, 0, 0, 0, 0]
